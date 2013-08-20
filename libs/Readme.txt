@@ -62,11 +62,15 @@ WebServer
 	Features: Implement the web server.
 	Updated Date: 6/4/2012
 
+AccelStepper
+	URL: http://www.airspayce.com/mikem/arduino/AccelStepper/
+	Features: Drive the easy driver.
+	Updated Date: 8/20/2013
+
 XXXX
 	URL:
 	Features:
 	Updated Date:
-
 
 ===========================File Structure of the libs==========================================
 The file system structure of libs in this folder should keep consistent with the subfolder libraries under the Ardunio IDE installation path. So that the libs can be exchanged freely.
