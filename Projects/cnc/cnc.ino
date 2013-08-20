@@ -4,7 +4,7 @@ Features
 
 Steps to deploy this sketch
  1. Configure the sketch as the Configuration section.
- 2. Build and upload the sketch to aruino board.
+ 2. Build and upload the sketch to aruino board. (You need to copy all the libs under https://github.com/JeffreyZksun/easyrobot/tree/master/libs to <Arduino>/Libraries/ folder)
  3. Wire the harwares as the Wire section.
  4. Power up the arduino board.
 
