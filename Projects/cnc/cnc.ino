@@ -10,7 +10,9 @@ Steps to deploy this sketch
 
 Test local commands
  * Help: "0x50 0x02 0xFA 0x01\r\n" (Route message to 0x02 from 0xFA to execute command 0x01.)
-
+ * Drive one stepper: "0x50 0x02 0xFA 0xA0 1 1 800\r\n"
+ * Drive two steppers: "0x50 0x02 0xFA 0xA0 1 1 800 2 1 1600\r\n"
+ * Drive three steppers: "0x50 0x02 0xFA 0xA0 1 1 800 2 1 1600 3 2 600\r\n"
 
 Configuration
  * Set MY_ADDRESS. This node is not in the network. Any address is ok.
@@ -89,7 +91,7 @@ Requried library
 #define SREPPER_3_DIR_PIN 6
 
 // Define the command id.
-#define DIRVE_STEPPER_NOTOR_CMD 0x10
+#define DIRVE_STEPPER_NOTOR_CMD 0xA0
 
 class ERxStepperMotorDrivingService : public ERxService
 {
@@ -98,7 +100,6 @@ public:
                                     , m_stepper2(1, SREPPER_2_STEP_PIN, SREPPER_2_DIR_PIN)
                                     , m_stepper3(1, SREPPER_3_STEP_PIN, SREPPER_3_DIR_PIN)
     {
-    
     }
 
 public:
@@ -108,18 +109,36 @@ public:
     {
         m_stepper1.run();
         m_stepper2.run();
-        m_stepper3.run();    
+        m_stepper3.run();        
     }
 
 	// Execute the command saved in the command.
 	virtual void Execute(ERxServiceContext& context)
     {
+
         switch(context.GetCommandId())
         {
         case DIRVE_STEPPER_NOTOR_CMD:
+        {
             // Command Format 
-            // <DIRVE_STEPPER_NOTOR_CMD><SPACE><STEPPER_ID><SPACE><DISTANCE>[<SPACE><STEPPER_ID><SPACE><DISTANCE>][<SPACE><STEPPER_ID><SPACE><DISTANCE>]
+            // <STEPPER_ID> 1|2|3
+            // <DIR> 1 means positive, 2 means negative.
+            // <DIRVE_STEPPER_NOTOR_CMD><SPACE><STEPPER_ID><SPACE><DIR><SPACE><DISTANCE>[<SPACE><STEPPER_ID><<SPACE><DIR>SPACE><DISTANCE>][<SPACE><STEPPER_ID><SPACE><DIR><SPACE><DISTANCE>]
+            // For example: 1 1 800 2 1 1600 3 2 600
             
+            // There are at most three instructions
+            bool hasInstruction = DriveOneStepperMotor(context.GetCommandParameterStream());
+            
+            if(hasInstruction)
+                hasInstruction = DriveOneStepperMotor(context.GetCommandParameterStream());
+            
+            if(hasInstruction)
+                hasInstruction = DriveOneStepperMotor(context.GetCommandParameterStream());
+            
+            
+            context.SetIsCommandExecuted(true);
+			context.SetIsCommandSuccess(true);
+        }   
             break;        
         default:
             // Do nothing
@@ -138,6 +157,36 @@ public:
 
 	// Response the result. 
 	virtual void HandleResult(ERxServiceContext& context){}
+    
+private:
+    bool DriveOneStepperMotor(ERxIOStream& parameterStream)
+    {
+        const unsigned long id = parameterStream.parseULong();
+        if(!id)
+            return false;
+        const unsigned long dir = parameterStream.parseULong();
+        if(!dir)
+            return false;
+        long dist = (long) parameterStream.parseULong();
+        
+        if(dir == 2) // Reverse the direction
+            dist = -dist;
+               
+        switch(id)
+        {
+            case 1:
+                m_stepper1.move(dist);
+                break;
+            case 2:
+                m_stepper2.move(dist);
+                break;                
+            case 3:
+                m_stepper3.move(dist);
+                break;       
+        }
+        
+        return true;    
+    }
 
 private:
 	AccelStepper    m_stepper1;
