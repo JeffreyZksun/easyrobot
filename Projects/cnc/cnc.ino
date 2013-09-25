@@ -100,6 +100,13 @@ public:
                                     , m_stepper2(1, SREPPER_2_STEP_PIN, SREPPER_2_DIR_PIN)
                                     , m_stepper3(1, SREPPER_3_STEP_PIN, SREPPER_3_DIR_PIN)
     {
+        // Important - The max speed and acceleration must be set. Otherwise, the stepper will never moves.
+        m_stepper1.setMaxSpeed(6000);
+        m_stepper1.setAcceleration(12000);
+        m_stepper2.setMaxSpeed(6000);
+        m_stepper2.setAcceleration(12000);
+        m_stepper3.setMaxSpeed(6000);
+        m_stepper3.setAcceleration(12000);
     }
 
 public:
@@ -171,7 +178,14 @@ private:
         
         if(dir == 2) // Reverse the direction
             dist = -dist;
-               
+
+        Serial.print("id:");
+        Serial.println(id);
+        Serial.print("dir:");
+        Serial.println(dir);
+        Serial.print("dist:");
+        Serial.println(dist);
+        
         switch(id)
         {
             case 1:
