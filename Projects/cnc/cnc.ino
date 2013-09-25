@@ -9,11 +9,18 @@ Steps to deploy this sketch
  4. Power up the arduino board.
 
 Test local commands
- * Help: "0x50 0x02 0xFA 0x01\r\n" (Route message to 0x02 from 0xFA to execute command 0x01.)
+ * Help: "0x50 0x02 0xFA 0x01\r\n" (Route message to 0x02 from 0xFA to execute command 0x01. )
  * Drive one stepper: "0x50 0x02 0xFA 0xA0 1 1 800\r\n"
  * Drive two steppers: "0x50 0x02 0xFA 0xA0 1 1 800 2 1 1600\r\n"
  * Drive three steppers: "0x50 0x02 0xFA 0xA0 1 1 800 2 1 1600 3 2 600\r\n"
 
+ 0x05 0x02 0xFA should be included in each command sent from PC. 0x05 indicates this is a route command. 0x02 is the target device, which is the arduino. 0xFA is the source device, which is the PC.
+ The command running in the device is in the format of <DIRVE_STEPPER_NOTOR_CMD><SPACE><STEPPER_ID><SPACE><DIR><SPACE><DISTANCE>[<SPACE><STEPPER_ID><<SPACE><DIR>SPACE><DISTANCE>][<SPACE><STEPPER_ID><SPACE><DIR><SPACE><DISTANCE>]
+ <DIRVE_STEPPER_NOTOR_CMD> - 0xA0
+ <STEPPER_ID> - 1|2|3
+ <DIR> - 1 | 2, 1 means positive direction. 2 means negative direction.
+ <DISTANCE> - number The distance of the stepper to move.
+ 
 Configuration
  * Set MY_ADDRESS. This node is not in the network. Any address is ok.
  * Set ROUTER_RELAY_ENABLE. If the Ardunio connects to XBee coordinator, set it true. Otherwise, set it false.
