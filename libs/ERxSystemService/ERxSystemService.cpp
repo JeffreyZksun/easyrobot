@@ -72,6 +72,6 @@ void ERxSystemService::PrintHelp(ERxServiceContext& context)
 
 	ERxOutputStream& rResultStream = context.GetResultStream();
 
-	PROG(serviceName) = "=======ERxSystemService====\r\n";
+	PROG(serviceName) = "> ERxSystemService\r\n";
 	rResultStream.printP(serviceName);
 }

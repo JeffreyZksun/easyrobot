@@ -11,6 +11,9 @@ Steps to run this sketch
  4. Send string "0x50 0x08 0x02 0x01\r\n" or "80 8 2 1\r\n".to router the command frame.
  Verify the output string is "0x50 0x08 0x02 0x01 \r\n" or the equivalent string.
 
+Data flow
+PC --> UART --> ERxTextMessage --> ERxUARTCmdReceiverService --> ERxMessageRouterService (override result stream) --> ERxHost.Execute() --> Specific service -->
+PC <-- UART <-- ERxRedirectOutputStream <------------------------------------------------- (execution result)
 
 * Created 29 May 2012
 * By Jeffrey Sun

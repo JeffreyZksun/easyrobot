@@ -61,6 +61,6 @@ void ERxTHDetectionService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream();
 
-	PROG(serviceName) = "=======ERxTHDetectionService====\r\n";
+	PROG(serviceName) = "> ERxTHDetectionService\r\n";
 	rResultStream.printP(serviceName);
 }

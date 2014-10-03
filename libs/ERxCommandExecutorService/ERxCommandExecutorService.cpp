@@ -53,6 +53,6 @@ void ERxCommandExecutorService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream();
 
-	PROG(serviceName) = "=======ERxCommandExecutorService====\r\n";
+	PROG(serviceName) = "> ERxCommandExecutorService\r\n";
 	rResultStream.printP(serviceName);
 }

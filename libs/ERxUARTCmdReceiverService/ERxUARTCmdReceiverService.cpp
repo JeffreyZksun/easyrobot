@@ -48,6 +48,6 @@ void ERxUARTCmdReceiverService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream(); 
 
-	PROG(serviceName) = "=======ERxUARTCmdReceiverService====\r\n";
+	PROG(serviceName) = "> ERxUARTCmdReceiverService\r\n";
 	rResultStream.printP(serviceName);
 }

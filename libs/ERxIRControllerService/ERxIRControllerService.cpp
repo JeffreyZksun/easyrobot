@@ -74,7 +74,7 @@ void ERxIRControllerService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream();
 
-	PROG(serviceName) = "=======ERxIRControllerService====\r\n";
+	PROG(serviceName) = "> ERxIRControllerService\r\n";
 	rResultStream.printP(serviceName);
 }
 

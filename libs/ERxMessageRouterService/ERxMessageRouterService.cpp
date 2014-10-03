@@ -127,7 +127,7 @@ void ERxMessageRouterService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream(); 
 
-	PROG(serviceName) = "=======ERxMessageRouterService====\r\n";
+	PROG(serviceName) = "> ERxMessageRouterService\r\n";
 	rResultStream.printP(serviceName);
 }
 

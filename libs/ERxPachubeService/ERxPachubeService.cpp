@@ -160,7 +160,7 @@ void ERxPachubeService::PrintHelp(ERxServiceContext& context)
 {
 	ERxOutputStream& rResultStream = context.GetResultStream();
 
-	PROG(serviceName) = "=======ERxPachubeService====\r\n";
+	PROG(serviceName) = "> ERxPachubeService\r\n";
 	rResultStream.printP(serviceName);
 }
 
