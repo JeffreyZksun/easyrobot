@@ -9,7 +9,7 @@ Steps to run this sketch
  3. Send string "0x50 0x01 0x02 0x01\r\n" or "80 1 2 1\r\n" to Arduino to execute the command 0x01
  Verify the output string is "80 2 1 2 1 xxxxx\r\n" or the equivalent string. xxxx stands for the help message.
  4. Send string "0x50 0x08 0x02 0x01\r\n" or "80 8 2 1\r\n".to router the command frame.
- Verify the output string is "0x50 0x08 0x02 0x01 \r\n" or the equivalent string.
+ Verify the output string is "0x50 0x08 0x02 0x01\r\n" or the equivalent string, since the command is routed back to PC.
 
 Data flow
 PC --> UART --> ERxTextMessage --> ERxUARTCmdReceiverService --> ERxMessageRouterService (override result stream) --> ERxHost.Execute() --> Specific service -->
