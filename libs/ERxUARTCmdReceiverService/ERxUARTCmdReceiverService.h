@@ -1,3 +1,32 @@
+/**
+=Feature=
+
+Receive the text message from the stream which is a UART port generally,
+ and populate it as the command.
+
+The command is based on the text message protocol. The whole command is transferred
+by ASCII chars. 
+
+The two messages below indicate the same command:
+"0x0A 23 abc"
+"10 23 abc"
+
+The data process workflow via UART is:
+
+<incoming data> --> UART --> ERxTextMessage --> ERxUARTCmdReceiverService
+
+=Dependency=
+
+ * Hardwares
+  * Arduino resource
+     * Serial port (UART)
+
+ * Softwares
+  * Consumed libraries
+     * ERxTextMessage
+
+@class ERxUARTCmdReceiverService
+**/
 #pragma once
 #ifndef ERX_UART_CMD_RECEIVER_SERVICE_H
 #define ERX_UART_CMD_RECEIVER_SERVICE_H
@@ -8,14 +37,27 @@
 class ERxUARTCmdReceiverService : public ERxService
 {
 public:
+	/**
+	@constructor
+	@param {Stream} pIORawStream this is the UART port generally.
+	**/
 	ERxUARTCmdReceiverService(Stream *pIORawStream);
 
 public:
-	// Generate the command based on the current status of the service. 
-	// Set it to context if there is. 
+	/**
+	Read the incoming data from stream and generate the new command to context.
+
+	The schema of the command is like:
+	<CMD_ID> <CMD_DATA><CR><LF>
+	
+	@method Populate
+	**/
 	virtual void Populate(ERxServiceContext& context);
 
-	// Print the help message of this service. 
+	/**
+	Show the help message
+	@method PrintHelp
+	**/
 	virtual void PrintHelp(ERxServiceContext& context);
 
 private:
