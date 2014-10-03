@@ -7,9 +7,11 @@ Receive the text message from the stream which is a UART port generally,
 The command is based on the text message protocol. The whole command is transferred
 by ASCII chars. 
 
+@example
 The two messages below indicate the same command:
-"0x0A 23 abc"
-"10 23 abc"
+
+	"0x0A 23 abc\r\n"
+	"10 23 abc\r\n"
 
 The data process workflow via UART is:
 
@@ -49,7 +51,7 @@ public:
 
 	The schema of the command is like:
 	<CMD_ID> <CMD_DATA><CR><LF>
-	
+
 	@method Populate
 	**/
 	virtual void Populate(ERxServiceContext& context);
