@@ -19,14 +19,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
 Function
 * This library is used to control L298N DC motor driver.
+* It only controls to rotation direction. The rotation speed is not controlled.
 
 
-Drive table of L298N.
+I/O table of L298N.
 
 E1/2 	M1/2		Motor
-1 		1	rotate forward
-1 		0	rotate backward
-0 		0		stop
+1 		1		rotate forward
+1 		0		rotate backward
+0 		0			stop
 
 The E1/2 pin controls if the motor rotates or not. 1 means rotate. 0 meas stop.
 The M1/2 pin controls the rotation direction. 1 and 0 are oposite direction. It only makes sense when E1 is 1.
@@ -85,16 +86,19 @@ public:
 	@constructor
 	@param {unsigned char} e the pin index of Arduino which connects to the E1/2 pin of L298N.
 	@param {unsigned char} m the pin index of Arduino which connects to the M1/2 pin of L298N.
+	@param {bool} reverse indicate if reverse the direction.
 	*/
-	ERxL298N(unsigned char e, unsigned char m);
+	ERxL298N(unsigned char e, unsigned char m, bool reverse = false);
 
 public:
 	void forward();
 	void backward();
 	void stop();
 
+
 private:
-	unsigned char m_e; 
-	unsigned char m_m;
+	unsigned char 	m_e; 
+	unsigned char 	m_m;
+	bool			m_reverse;
 };
 #endif // ERXL298N_H
