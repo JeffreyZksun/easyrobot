@@ -1,9 +1,11 @@
 /**************************************************************************************
 Functionality:	
-	<Describe the main functionality of the code in this file.>
+This sketch is used to test the UART communication between PC and arduino.
+Send "a" or "b" from PC to arduino. Arduino will give the response.
 
 The circuit:
-	<Describe the used circuit connection.>
+
+Use USB connect Arduino to PC.
 
 More:
 	<Add more information regarding the hardware>

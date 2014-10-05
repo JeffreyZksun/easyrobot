@@ -2,6 +2,29 @@
 #include <ERxL298N.h>
 #include <ERxServiceContext.h>
 
+// #define ENABLE_DEBUG_MESSAGE
+
+#ifdef ENABLE_DEBUG_MESSAGE
+#include <HardwareSerial.h>
+
+template<class T>
+void DEBUG_PRINT_LN(T message) 
+{
+	Serial.println(message); 
+}
+
+template<class T>
+void DEBUG_PRINT(T message) 
+{
+	Serial.print(message); 
+}
+
+#else
+// define the empty macros
+#define DEBUG_PRINT_LN(message)
+#define DEBUG_PRINT(message)
+#endif
+
 ERxL298NMotorService::ERxL298NMotorService()
 {
 	// initialize
@@ -15,6 +38,8 @@ bool ERxL298NMotorService::addLeftMotor(unsigned char e, unsigned char m, bool r
 	for(int i=0; i<MAX_MOTORS; i++){
 		if(!m_leftMotors[i]){
 			m_leftMotors[i] = new ERxL298N(e, m, reverse);
+			DEBUG_PRINT("add left motor: ");
+			DEBUG_PRINT_LN(i);
 			return true;
 		}
 	}
@@ -32,44 +57,56 @@ bool ERxL298NMotorService::addRightMotor(unsigned char e, unsigned char m, bool 
 }
 void ERxL298NMotorService::forward()
 {
+	DEBUG_PRINT("Move forward: ");
+
 	for(int i=0; i<MAX_MOTORS; i++){
-		if(!m_leftMotors[i]){
+		if(m_leftMotors[i]){
+			DEBUG_PRINT(" LF");DEBUG_PRINT(i);
 			m_leftMotors[i]->forward();
 		}
-		if(!m_rightMotors[i]){
+		if(m_rightMotors[i]){
+			DEBUG_PRINT(" RF");DEBUG_PRINT(i);
 			m_rightMotors[i]->forward();
 		}
 	}
+
+	DEBUG_PRINT_LN(' ');
 }
 void ERxL298NMotorService::backward()
 {
 	for(int i=0; i<MAX_MOTORS; i++){
-		if(!m_leftMotors[i]){
+		if(m_leftMotors[i]){
 			m_leftMotors[i]->backward();
 		}
-		if(!m_rightMotors[i]){
+		if(m_rightMotors[i]){
 			m_rightMotors[i]->backward();
 		}
 	}
 }
 void ERxL298NMotorService::turnLeft()
 {
+	DEBUG_PRINT("Turn left: ");
+	
 	for(int i=0; i<MAX_MOTORS; i++){
-		if(!m_leftMotors[i]){
+		if(m_leftMotors[i]){
+			DEBUG_PRINT(" LB");DEBUG_PRINT(i);
 			m_leftMotors[i]->backward();
 		}
-		if(!m_rightMotors[i]){
+		if(m_rightMotors[i]){
+			DEBUG_PRINT(" RF");DEBUG_PRINT(i);
 			m_rightMotors[i]->forward();
 		}
 	}
+
+	DEBUG_PRINT_LN(' ');
 }
 void ERxL298NMotorService::turnRight()
 {
 	for(int i=0; i<MAX_MOTORS; i++){
-		if(!m_leftMotors[i]){
+		if(m_leftMotors[i]){
 			m_leftMotors[i]->forward();
 		}
-		if(!m_rightMotors[i]){
+		if(m_rightMotors[i]){
 			m_rightMotors[i]->backward();
 		}
 	}
@@ -77,20 +114,14 @@ void ERxL298NMotorService::turnRight()
 void ERxL298NMotorService::stop()
 {
 	for(int i=0; i<MAX_MOTORS; i++){
-		if(!m_leftMotors[i]){
+		if(m_leftMotors[i]){
 			m_leftMotors[i]->stop();
 		}
-		if(!m_rightMotors[i]){
+		if(m_rightMotors[i]){
 			m_rightMotors[i]->stop();
 		}
 	}
 }
-
-#define CMD_ROBOT_FORWARD 0x70
-#define CMD_ROBOT_BACKWARD 0x71
-#define CMD_ROBOT_TURN_RIGHT 0x72
-#define CMD_ROBOT_TURN_LEFT 0x73
-#define CMD_ROBOT_STOP 0x74
 
 void ERxL298NMotorService::Execute(ERxServiceContext& context)
 {
@@ -123,7 +154,7 @@ void ERxL298NMotorService::Execute(ERxServiceContext& context)
 		break;
 	case CMD_ROBOT_TURN_LEFT: 
 		{
-			turnRight();
+			turnLeft();
 		}
 		break;
 	case CMD_ROBOT_STOP: 

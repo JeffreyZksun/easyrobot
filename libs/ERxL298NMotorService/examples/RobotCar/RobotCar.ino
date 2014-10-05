@@ -1,13 +1,16 @@
 /*
-This a program for a robot car. There is one motor on each side.
+This a program for a two wheels driven robot car. 
+The car has four wheels. There is one driving wheel on each side. 
+The Motor is DC motor which is controlled by L298N.
+
 The UART can receive the remote command to control the car.
 
 Steps to run this sketch
  1. Build the sketch and upload to Arduino
  2. Open serial monitor 
- 3. Send control commands to controll the car.
+ 3. Send control commands from controller (PC) to controll the car via UART.
 
-Control Commands (They are remote commands. So adding the router prefix. 0x50 0x01 0x02)
+Control Commands (They are remote commands. So add the router prefix "0x50 0x01 0x02".)
 Forward: "0x50 0x01 0x02 0x70\r\n"
 Backward: "0x50 0x01 0x02 0x71\r\n"
 Turn right: "0x50 0x01 0x02 0x72\r\n"
@@ -15,7 +18,7 @@ Turn Left: "0x50 0x01 0x02 0x73\r\n"
 Stop: "0x50 0x01 0x02 0x74\r\n"
 Help: "0x50 0x01 0x02 0x01\r\n"
 
-Data flow
+Command flow
 PC --> UART --> ERxTextMessage --> ERxUARTCmdReceiverService --> ERxMessageRouterService (override result stream) --> ERxHost.Execute() --> ERxL298NMotorService -->
 PC <-- UART <-- ERxRedirectOutputStream <------------------------------------------------- (execution result)
 
@@ -30,14 +33,30 @@ The circuit:
 	GND				GND
 	VIN(9V)			VD
 ---------------------------------------------
-	Battery (for motor)		L298N	 Arduino
-	GND						GND		  GND		
-	+9V						VS		  Jack(or Vin)
+	Circuit power	 Arduino
+	GND				  GND		
+	+9V				  Jack(or Vin)
+
+---------------------------------------------
+	Motor power*	  L298N	    Arduino
+	GND					GND		  GND		
+	+9V					VS		  N/A
+
+The motor can use the same power with the circuit.
 ---------------------------------------------
 	L298N		Motor
 	M1			Lefter motor
 	M2			Right motor
 ---------------------------------------------
+
+If you want to communicate with Arduino via Bluetooth other than USB cable,
+connect the bluetooth module with the wiring below. (Don't need to change the code)
+
+Arduino 	Bluetooth
+ 5V			 VCC
+ GND		 GND
+ TX    		 RX
+ RX			 TX
 
 * Created 5 October 2014
 * By Jeffrey Sun
@@ -95,6 +114,7 @@ ERxL298NMotorService motorService;
 void setup() {
 
 	Serial.begin(9600);
+	Serial.println("System startup");
 
 	// Set the address.
 	host.SetMyAddress(MY_ADDRESS);
@@ -108,7 +128,6 @@ void setup() {
 	motorService.addLeftMotor(E1, M1);
 	motorService.addRightMotor(E2, M2);
 
-	Serial.println("System startup");
 }
 
 void loop() {
