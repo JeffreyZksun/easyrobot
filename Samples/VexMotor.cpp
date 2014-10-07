@@ -11,7 +11,7 @@ To control VEX motor, the range of PWM signal for the speed control is 1000 us t
 
 The circuit:
 
-Arduino----VEX
+Arduino----VEX Motor
  +5V--------Red line
  GND--------Black line
  6----------White line
@@ -28,7 +28,6 @@ Open question
 Reference: 
 [1] wiring, http://www.robotc.net/wiki/Tutorials/Arduino_Projects/Mobile_Robotics/VEX/Connecting_A_VEX_Motor
 [2] Servo library, http://arduino.cc/en/reference/servo
-[3] PWM frequency, http://arduino.cc/en/Tutorial/PWM
 
 Author:		Jeffrey Sun
 Created:	7 October 2014
