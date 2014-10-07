@@ -39,7 +39,7 @@ Created:	7 October 2014
 #include <Servo.h> 
 
 #define MOTOR_PIN 6
-// define the PWM range for the VEX speed controll
+// define the PWM range for the VEX speed control
 #define MIN_POS 1000 // 0
 #define MAX_POS 2000 // 255
 #define CENTER_POS 1500 // 127
