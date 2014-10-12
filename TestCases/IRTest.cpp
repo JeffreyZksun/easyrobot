@@ -116,7 +116,9 @@ void storeCode(decode_results *results) {
 			Serial.print(codeType, DEC);
 			Serial.println("");
 		}
-		Serial.println(results->value, HEX);
+		Serial.print(results->value, HEX);
+		Serial.print(",bit length: ");
+		Serial.println(results->bits, DEC);
 		codeValue = results->value;
 		codeLen = results->bits;
 	}
