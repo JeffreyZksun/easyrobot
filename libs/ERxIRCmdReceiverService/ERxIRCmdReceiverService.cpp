@@ -8,7 +8,8 @@
 #include <HardwareSerial.h>
 #endif
 
-ERxIRCmdReceiverService::ERxIRCmdReceiverService(int irInputPin) : m_IRrecv(irInputPin)
+ERxIRCmdReceiverService::ERxIRCmdReceiverService(int irInputPin) 
+	: m_IRrecv(irInputPin), m_Results()
 {
 #ifdef DEBUG_IR_RECV
 	Serial.begin(9600);
@@ -18,7 +19,7 @@ ERxIRCmdReceiverService::ERxIRCmdReceiverService(int irInputPin) : m_IRrecv(irIn
 }
 
 void ERxIRCmdReceiverService::Populate(ERxServiceContext& context)
-{
+{	
 	if (m_IRrecv.decode(&m_Results)) {
 
 		int codeType = m_Results.decode_type;
@@ -81,8 +82,7 @@ void ERxIRCmdReceiverService::Populate(ERxServiceContext& context)
 		else {
 			#ifdef DEBUG_IR_RECV
 			Serial.print("Unexpected codeType: ");
-			Serial.print(codeType, DEC);
-			Serial.println("");
+			Serial.println(codeType, DEC);
 			#endif
 		}
 
