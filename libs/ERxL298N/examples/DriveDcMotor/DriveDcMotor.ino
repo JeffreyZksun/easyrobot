@@ -36,6 +36,7 @@ The circuit:
 */
 
 #include <Arduino.h>
+#include <ERxIMotor.h>
 #include <ERxL298N.h>
 #include <HardwareSerial.h>
 

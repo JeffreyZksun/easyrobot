@@ -74,10 +74,15 @@ L298N reference: http://item.taobao.com/item.htm?spm=a1z09.2.9.11.fVbF4K&id=2272
 #define ERXL298N_H
 
 #include <Arduino.h>
+#include <ERxIMotor.h>
 
-#define L298N_LIB_VER "1.0"
+/*
+1.0, 4 October 2014, Add the initial version of the library.
+2.0, 2 November 2014,  Make this class derived from ERxIMotor.
+*/
+#define L298N_LIB_VER "2.0"
 
-class ERxL298N
+class ERxL298N : public ERxIMotor
 {
 public:
 	/*
@@ -91,10 +96,9 @@ public:
 	ERxL298N(unsigned char e, unsigned char m, bool reverse = false);
 
 public:
-	void forward();
-	void backward();
-	void stop();
-
+	virtual void forward(unsigned int speed = 0);
+	virtual void backward(unsigned int speed = 0);
+	virtual void stop();
 
 private:
 	unsigned char 	m_e; 

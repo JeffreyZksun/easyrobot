@@ -74,6 +74,7 @@ Arduino 	Bluetooth
 #include <ERxSystemService.h>
 #include <ERxUARTCmdReceiverService.h>
 #include <ERxMessageRouterService.h>
+#include <ERxIMotor.h>
 #include <ERxL298N.h>
 #include <ERxL298NMotorService.h>
 

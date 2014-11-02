@@ -20,6 +20,7 @@ Steps to run this sketch
 #include <ERxIOStream.h>
 #include <ERxService.h>
 #include <ERxServiceContext.h>
+#include <ERxIMotor.h>
 #include <ERxL298N.h>
 #include <ERxL298NMotorService.h>
 

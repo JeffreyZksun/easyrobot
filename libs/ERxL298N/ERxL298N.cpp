@@ -8,13 +8,13 @@ ERxL298N::ERxL298N(unsigned char e, unsigned char m, bool reverse /*= false*/)
 	stop();
 }
 
-void ERxL298N::forward()
+void ERxL298N::forward(unsigned int speed /*= 0*/)
 {
 	digitalWrite(m_e, HIGH);
 	digitalWrite(m_m, m_reverse?LOW:HIGH);
 }
 
-void ERxL298N::backward()
+void ERxL298N::backward(unsigned int speed /*= 0*/)
 {
 	digitalWrite(m_e, HIGH);
 	digitalWrite(m_m, m_reverse?HIGH:LOW);
