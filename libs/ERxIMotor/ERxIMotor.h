@@ -1,5 +1,6 @@
 /*
-The interface for the 360-degree rotations motors. 
+The base class for the 360-degree rotations motors. 
+The interface supports the speed control. The recommended speed range is [0, 255]. O is the slowest and 255 is the fastest. If the conceret motor driver doesn't support the speed control, this value will be ingored.
 
 * Created 2 November 2014
 * By Jeffrey Sun
