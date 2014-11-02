@@ -1,5 +1,9 @@
 /*
 
+***************************************
+This service is deprecated by the ERxMotorService.
+***************************************
+
 This service is for the motor driven robot car. 
 There are two sets of motor on the both sides of car.
 
