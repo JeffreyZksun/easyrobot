@@ -172,9 +172,9 @@ void updateBlueToothStatus(){
 bool sideLedOn=false;
 // Always light on the middle, flash the other two.
 void changeLEDMode1(){
-    digitalWrite(ledPin[LED2],HIGH);// light on the middle one.
-    digitalWrite(ledPin[LED1],sideLedOn?HIGH:LOW);
-    digitalWrite(ledPin[LED3],sideLedOn?HIGH:LOW);
+    digitalWrite(LED2,HIGH);// light on the middle one.
+    digitalWrite(LED1,sideLedOn?HIGH:LOW);
+    digitalWrite(LED3,sideLedOn?HIGH:LOW);
     sideLedOn = !sideLedOn;
 }
 
