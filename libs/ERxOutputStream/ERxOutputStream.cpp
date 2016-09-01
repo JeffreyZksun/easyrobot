@@ -15,7 +15,7 @@ void ERxOutputStream::flush(void)
 
 }
 
-size_t ERxOutputStream::writeP(const prog_uchar *data, size_t length)
+size_t ERxOutputStream::writeP(const char *data, size_t length)
 {
 	size_t n = 0;
 
@@ -42,7 +42,7 @@ size_t ERxOutputStream::writeP(const prog_uchar *data, size_t length)
 	return n;
 }
 
-size_t ERxOutputStream::printP(const prog_uchar *str)
+size_t ERxOutputStream::printP(const char *str)
 {
 	size_t n = 0;
 

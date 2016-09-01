@@ -15,8 +15,8 @@ public:
 	// using Print::write; // pull in write(str) and write(buf, size) from Print
 
 public:
-	size_t		writeP(const prog_uchar *data, size_t length);
-	size_t		printP(const prog_uchar *str);
+	size_t		writeP(const char *data, size_t length);
+	size_t		printP(const char *str);
 
 public:
 	virtual void		flush(void);

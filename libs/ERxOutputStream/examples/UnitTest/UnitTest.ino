@@ -92,7 +92,9 @@ void EqualTest(const char* pCaseName, int actualValue, int expctedValue)
 
 //*********************Test case******************//
 
-static const prog_uchar prog_data[] PROGMEM = "0123456789" ; //length: 10
+// static const prog_uchar prog_data[] PROGMEM = "0123456789" ; //length: 10
+// prog_uchar is deprecated
+static const char prog_data[] PROGMEM = "0123456789" ; //length: 10
 
 void RunUnitTest()
 {
