@@ -3,7 +3,7 @@
 #define ERX_SERVICE_MACRO_H
 
 // declare a static string
-#define PROG(name)   static const prog_uchar name[] PROGMEM
+#define PROG(name)   static const char name[] PROGMEM
 
 // host addresses
 #define INVALID_ADDRESS 0
