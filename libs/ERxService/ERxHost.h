@@ -28,7 +28,7 @@ public:
 #endif //USE_INTERNAL_BUFFER
 
 public:
-	void				Run();
+	unsigned int		Run();
 	void				Execute(ERxServiceContext& );
 	void				PrintHelp(ERxServiceContext& );
 	void				HandleResult(ERxServiceContext& );

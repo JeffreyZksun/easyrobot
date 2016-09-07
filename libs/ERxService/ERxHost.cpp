@@ -36,8 +36,9 @@ bool ERxHost::AddService(ERxService* pService)
 	return true;
 }
 
-void ERxHost::Run()
-{
+unsigned int ERxHost::Run()
+{	
+	unsigned int count = 0;
 	m_context.InvalidateCommand();
 	for(size_t i = 0; i < m_size; i++)
 	{
@@ -48,8 +49,11 @@ void ERxHost::Run()
 
 			// No matter the command is executed or not. Invalidate it.
 			m_context.InvalidateCommand();
+			count++;
 		}
 	}
+
+	return count;
 }
 
 void ERxHost::Execute(ERxServiceContext& context)
