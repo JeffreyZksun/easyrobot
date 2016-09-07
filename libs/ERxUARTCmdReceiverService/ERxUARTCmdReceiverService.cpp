@@ -36,8 +36,22 @@ void ERxUARTCmdReceiverService::Populate(ERxServiceContext& context)
 			context.SetCommandId(cmdId);
 
 			ERxIOStream& rCmdParameterStream = context.GetCommandParameterStream(); 
-			while(m_TextMessage.available())
-				rCmdParameterStream.write(m_TextMessage.read());
+			int c = 0;
+			bool bPreviousCharIsCR = false;
+
+			// Use \r\n as the terminator of the command line.
+			while(m_TextMessage.available()){
+				c=m_TextMessage.read();
+				rCmdParameterStream.write(c);
+				if('\r' == c){
+					bPreviousCharIsCR = true;
+				}
+				else if('\n' == c){
+					if(bPreviousCharIsCR){
+						break;
+					}
+				}
+			}
 		}
 
 		m_TextMessage.invalidate();
